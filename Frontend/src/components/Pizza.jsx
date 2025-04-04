@@ -39,7 +39,7 @@ const Pizza = () => {
   }
   return (
     <div className="container min-vh-100 d-flex justify-content-center align-items-center  ">
-      <div className="col-md-4 d-flex border-radius-3px">
+      <div className="col-md-4 d-flex border-radius-4px">
         <div className="card h-100 d-flex flex-column ">
           <h2 className="text-center">{pizza.name}</h2>
           <img src={pizza.img} alt={pizza.name} className="img-fluid mb-3" />
