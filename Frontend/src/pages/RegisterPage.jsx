@@ -30,18 +30,35 @@ const RegisterPage = () => {
       <form onSubmit={handleSubmit} className="w-50 mx-auto border p-3 rounded">
         <div className="mb-3">
           <label className="form-label">Email</label>
-          <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input
+            type="email"
+            className="form-control"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
         <div className="mb-3">
           <label className="form-label">Contraseña</label>
-          <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input
+            type="password"
+            className="form-control"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
         <div className="mb-3">
           <label className="form-label">Confirmar contraseña</label>
-          <input type="password" className="form-control" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+          <input
+            type="password"
+            className="form-control"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
         </div>
         {message && <div className="alert alert-info">{message}</div>}
-        <button type="submit" className="btn btn-success w-100">Registrarse</button>
+        <button type="submit" className="btn btn-success w-100">
+          Registrarse
+        </button>
       </form>
     </div>
   );
