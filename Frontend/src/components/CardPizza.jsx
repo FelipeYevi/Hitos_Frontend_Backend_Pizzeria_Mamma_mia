@@ -1,7 +1,13 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { useCart } from "../context/CartContext";
 
 const CardPizza = ({ name, price, ingredients, img }) => {
+  const { addToCart } = useCart(); 
+
+  const handleAddToCart = () => {
+    addToCart({ name, price, ingredients, img, id: name }); 
+  };
+
   return (
     <div className="col-md-4 d-flex">
       <div className="card h-100 d-flex flex-column">
@@ -13,7 +19,6 @@ const CardPizza = ({ name, price, ingredients, img }) => {
             <ul className="list-inline">
               {ingredients.map((ing, index) => (
                 <li key={index} className="list-inline-item">
-                  {" "}
                   {ing}
                 </li>
               ))}
@@ -22,9 +27,9 @@ const CardPizza = ({ name, price, ingredients, img }) => {
           <p className="text-center fs-4">
             <strong>Precio: ${price.toLocaleString()}</strong>
           </p>
-          <div className="mt-auto d-flex justify-content-between ">
+          <div className="mt-auto d-flex justify-content-between">
             <button className="btn btn-outline-secondary">Ver Más</button>
-            <button className="btn btn-dark">Añadir 🛒</button>
+            <button className="btn btn-dark" onClick={handleAddToCart}>Añadir 🛒</button> 
           </div>
         </div>
       </div>

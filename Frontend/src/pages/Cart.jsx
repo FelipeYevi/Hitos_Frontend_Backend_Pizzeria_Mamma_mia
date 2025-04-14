@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useCart } from "../context/CartContext";  
 
 const Cart = () => {
-  const [cart, setCart] = useState([]);
+  const { cart, removeFromCart, addToCart, total } = useCart();  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -13,7 +14,6 @@ const Cart = () => {
       }
       const data = await response.json();
 
-      setCart(data.map((pizza) => ({ ...pizza, quantity: 0 })));
     } catch (err) {
       setError(err.message);
     } finally {
@@ -24,31 +24,6 @@ const Cart = () => {
   useEffect(() => {
     getPizzas();
   }, []);
-
-  const increaseQuantity = (id) => {
-    setCart((prevCart) =>
-      prevCart.map((pizza) =>
-        pizza.id === id ? { ...pizza, quantity: pizza.quantity + 1 } : pizza
-      )
-    );
-  };
-
-  const decreaseQuantity = (id) => {
-    setCart((prevCart) =>
-      prevCart
-        .map((pizza) =>
-          pizza.id === id && pizza.quantity > 0
-            ? { ...pizza, quantity: pizza.quantity - 1 }
-            : pizza
-        )
-        .filter((pizza) => pizza.quantity > 0)
-    );
-  };
-
-  const total = cart.reduce(
-    (sum, pizza) => sum + pizza.price * pizza.quantity,
-    0
-  );
 
   if (loading) {
     return <div>Cargando...</div>;
@@ -81,14 +56,14 @@ const Cart = () => {
             <span className="me-3">${pizza.price.toLocaleString()}</span>
             <button
               className="btn btn-outline-danger me-2"
-              onClick={() => decreaseQuantity(pizza.id)}
+              onClick={() => removeFromCart(pizza.id)}  
             >
               -
             </button>
             <span>{pizza.quantity}</span>
             <button
               className="btn btn-outline-primary ms-2"
-              onClick={() => increaseQuantity(pizza.id)}
+              onClick={() => addToCart(pizza)}  
             >
               +
             </button>

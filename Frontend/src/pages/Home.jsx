@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import CardPizza from "../components/CardPizza";
+import { useCart } from "../context/CartContext"; 
 
 const Home = () => {
   const [pizzas, setPizzas] = useState([]);
-
+  const { addToCart } = useCart(); 
   const getPizzas = async () => {
-    const response = await fetch("http://localhost:5000/api/pizzas");
-    const data = await response.json();
-    setPizzas(data);
+    try {
+      const response = await fetch("http://localhost:5000/api/pizzas");
+      const data = await response.json();
+      setPizzas(data);
+    } catch (error) {
+      console.error("Error al obtener las pizzas:", error);
+    }
   };
 
   useEffect(() => {
@@ -20,13 +25,13 @@ const Home = () => {
       <Header />
       <div className="cards row mt-4">
         {pizzas.map((pizza) => (
-          <CardPizza
-            key={pizza.id}
-            name={pizza.name}
-            price={pizza.price}
-            ingredients={pizza.ingredients}
-            img={pizza.img}
-          />
+           <CardPizza
+           key={pizza.id}
+           name={pizza.name}
+           price={pizza.price}
+           ingredients={pizza.ingredients}  
+           img={pizza.img}
+         />
         ))}
       </div>
     </div>
