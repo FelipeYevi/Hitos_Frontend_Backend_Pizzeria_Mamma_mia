@@ -16,7 +16,7 @@ import { CartProvider } from "./context/CartContext"
 
 function App() {
   return (
-    <CartProvider> {/* 👈 wrap con el provider */}
+    <CartProvider> 
     <Router>
       <Navbar />
       <Routes>
@@ -25,7 +25,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/pizza/p001" element={<Pizza />} />
+        <Route path="/pizza/:id" element={<Pizza />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />

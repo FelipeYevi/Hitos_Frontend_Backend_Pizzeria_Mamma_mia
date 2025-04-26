@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom"
 import { useCart } from "../context/CartContext";
 
-const CardPizza = ({ name, price, ingredients, img }) => {
+const CardPizza = ({ id, name, price, ingredients, img }) => {
   const { addToCart } = useCart(); 
 
   const handleAddToCart = () => {
-    addToCart({ name, price, ingredients, img, id: name }); 
+    addToCart({ id, name, price, ingredients, img,}); 
   };
 
   return (
@@ -28,7 +29,9 @@ const CardPizza = ({ name, price, ingredients, img }) => {
             <strong>Precio: ${price.toLocaleString()}</strong>
           </p>
           <div className="mt-auto d-flex justify-content-between">
-            <button className="btn btn-outline-secondary">Ver Más</button>
+          <Link to={`/pizza/${id}`} className="btn btn-outline-secondary">
+              Ver Más
+            </Link>
             <button className="btn btn-dark" onClick={handleAddToCart}>Añadir 🛒</button> 
           </div>
         </div>
