@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";  
-import { useUser } from "../context/userContext";
 
 const Cart = () => {
   const { cart, removeFromCart, addToCart, total } = useCart();  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { token } = useUser();
 
   const getPizzas = async () => {
     try {

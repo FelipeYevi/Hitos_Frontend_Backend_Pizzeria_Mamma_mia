@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/userContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const RegisterPage = () => {
@@ -6,6 +8,13 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
+  const { token } = useUser();
+  const navigate = useNavigate();
+
+  if (token) {
+    return <Navigate to="/home" />;
+  }
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,6 +31,7 @@ const RegisterPage = () => {
       return;
     }
     setMessage("Registro exitoso");
+    navigate("/home");
   };
 
   return (

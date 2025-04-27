@@ -1,8 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -12,26 +8,50 @@ import Profile from "./pages/Profile";
 import Cart from "./pages/Cart";
 import Pizza from "./pages/Pizza";
 import NotFoundPage from "./pages/NotFoundPage";
-import { CartProvider } from "./context/CartContext"
+import { CartProvider } from "./context/CartContext";
+import { UserProvider, useUser } from "./context/userContext";  
 
-function App() {
+const AppRoutes = () => {
+  const { token } = useUser(); 
   return (
-    <CartProvider> 
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/pizza/:id" element={<Pizza />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-      <Footer />
-    </Router>
-  </CartProvider>
+    <Routes>
+      <Route path="/" element={<Home />} />
+
+      <Route
+        path="/login"
+        element={token ? <Navigate to="/" /> : <LoginPage />}
+      />
+
+      <Route
+        path="/register"
+        element={token ? <Navigate to="/" /> : <LoginPage />}
+      />
+
+      <Route
+        path="/profile"
+        element={token ? <Profile /> : <Navigate to="/login" />}
+      />
+
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/pizza/:id" element={<Pizza />} />
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
   );
-}
+};
+
+const App = () => {
+  return (
+    <UserProvider>
+      <CartProvider>
+        <Router>
+          <Navbar />
+          <AppRoutes /> 
+          <Footer />
+        </Router>
+      </CartProvider>
+    </UserProvider>
+  );
+};
 
 export default App;
+

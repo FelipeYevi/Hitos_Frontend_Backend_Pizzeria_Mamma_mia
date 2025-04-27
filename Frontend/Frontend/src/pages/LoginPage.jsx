@@ -1,21 +1,11 @@
-import React, { useState,useEffect } from "react";
-
-import { useUser } from "../context/userContext";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const { login,token } = useUser();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (token) {
-      navigate("/home");
-    }
-  }, [token, navigate]);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email || !password) {
@@ -26,9 +16,7 @@ const LoginPage = () => {
       setMessage("La contraseña debe tener al menos 6 caracteres");
       return;
     }
-    login(); 
-    setMessage("Inicio de sesión exitoso")  
-    navigate("/home"); 
+    setMessage("Inicio de sesión exitoso");
   };
 
   return (

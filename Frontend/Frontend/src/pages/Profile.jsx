@@ -1,13 +1,7 @@
 import React from "react";
-import { useUser } from "../context/userContext";
 
 const Profile = () => {
-  const { logout } = useUser();
   const email = "FelipeYevilao@gmail.com";
-  const handleLogout = () => {
-    logout();
-    navigate("/login"); 
-  };
   return (
     <div className="container mt-5">
       <div className="w-50 mx-auto border p-4 text-center">

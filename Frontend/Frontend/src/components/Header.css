@@ -1,0 +1,7 @@
+.header-container {
+  background: url("../assets/img/Header.jpg") center/cover;
+  color: white;
+  text-align: center;
+  padding: 50px;
+  font-size: 1.5rem;
+}
